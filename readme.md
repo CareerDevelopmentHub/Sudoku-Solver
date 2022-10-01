@@ -14,7 +14,7 @@ Check out the issues to see what you can do. We have some first come and easy ta
 
 Here are a few guidelines to keep in mind before contributing: &#129534;
 
-&#49;&#65039;&#8419; Raise an issue on whatever bug fix or feature you want to work on.
+&#49;&#65039;&#8419; Raise an [issue](https://github.com/CareerDevelopmentHub/Sudoku-Solver/issues) on whatever bug fix or feature you want to work on.
 
 &#50;&#65039;&#8419; State what you want to work on and also the solution that you plan to implement.
 
