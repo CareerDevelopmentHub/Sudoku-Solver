@@ -39,6 +39,7 @@ function setColor(temp) {
         for (var j = 0; j < 9; j++) {
             if (temp[i][j] == true) {
                 arr[i][j].style.color = "#DC3545";
+                
             }
 
         }
@@ -169,3 +170,26 @@ solve.onclick = function () {
     solveSudoku(board)
 
 }
+
+/* Focus Change */
+window.onload = function () {
+    var preTitle = document.title;
+    var postTitle = "Don't give up ! 🥺";
+    document.addEventListener("visibilitychange", function () {
+      var page_Active = !document.hidden;
+  
+      if (!page_Active) {
+        document.title = postTitle;
+      } else {
+        document.title = preTitle;
+      }
+    });
+  };
+
+  /*Dark-Mode*/
+  function darkMode() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+  }
+
+  
