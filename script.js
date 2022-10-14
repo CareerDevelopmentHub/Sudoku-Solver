@@ -241,3 +241,29 @@ window.onload = function () {
   }
 
 }
+
+
+function save ()
+{
+
+    const username = document.getElementById("username").value;
+    console.log(username, "save");
+    for (let i = 0; i < 81;i++)
+    {
+        board[~~(i / 9)][i % 9] = document.getElementById(i).innerHTML;   
+    }
+    localStorage.setItem(username,  JSON.stringify([board, min.innerHTML, sec.innerHTML]));
+    console.log(min.innerHTML, sec.innerHTML)
+}
+
+function resume () 
+{
+    
+    const username = document.getElementById("username").value;
+    console.log(username, JSON.parse(localStorage.getItem(username)));
+    board = JSON.parse(localStorage.getItem(username))[0];
+    min.innerHTML = JSON.parse(localStorage.getItem(username))[1];
+    sec.innerHTML = JSON.parse(localStorage.getItem(username))[2];
+    changeBoard(board)
+    console.log(board);
+}
