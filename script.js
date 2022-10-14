@@ -264,6 +264,7 @@ function resume ()
     board = JSON.parse(localStorage.getItem(username))[0];
     min.innerHTML = JSON.parse(localStorage.getItem(username))[1];
     sec.innerHTML = JSON.parse(localStorage.getItem(username))[2];
+    timerr = setInterval(timer,1000)
     changeBoard(board)
     console.log(board);
 }
