@@ -353,3 +353,29 @@
 </body>
 
 </html>
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
+
+<title>untitled document</title>
+
+</head>
+<body> 
+
+  <button class="btn-print">Print</button>
+
+<script>
+(function( w, d ) {
+   'use strict'; 
+
+   d.querySelector( '.btn-print' ).addEventListener( 'click', function() { w.print(); }, false );
+
+}( window, document ));
+</script>
+
+</body>
+</html>
