@@ -354,28 +354,19 @@
 
 </html>
 
-<!DOCTYPE HTML>
-<html lang="en">
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
 <head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
-
-<title>untitled document</title>
-
+    <title>javascript print button method</title>
 </head>
-<body> 
-
-  <button class="btn-print">Print</button>
-
-<script>
-(function( w, d ) {
-   'use strict'; 
-
-   d.querySelector( '.btn-print' ).addEventListener( 'click', function() { w.print(); }, false );
-
-}( window, document ));
-</script>
-
-</body>
-</html>
+<body>
+    
+<button onclick="myfun()"><i class="fa-solid fa-print"></i></button>
+<script type="text/javascript">
+    function myfun() {
+        window.print();
+    }
+    </script>
+    </body>
+    </html>
