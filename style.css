@@ -186,3 +186,34 @@ body{
     color: violet;
     
 }
+  .undo-button {
+    user-select: none;
+    width: 80px;
+    text-align: center;
+    color: white;
+    height: 40px;
+    border-radius: 10px;
+    background: rgb(212, 45, 45);
+    opacity: 1;
+    padding-top: 5px;
+  }
+  
+  .undo-button:hover {
+    opacity: 0.8;
+  }
+
+  .redo-button {
+    user-select: none;
+    width: 80px;
+    text-align: center;
+    color: white;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(104, 233, 157, 0.849);
+    opacity: 1;
+    padding-top: 5px;
+  }
+  
+  .redo-button:hover {
+    opacity: 0.8;
+  }
