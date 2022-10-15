@@ -60,7 +60,7 @@ function resetColor() {
 
 var board = [[], [], [], [], [], [], [], [], []]
 
-
+let container = document.getElementById('container')
 let button = document.getElementById('generate-sudoku')
 let solve = document.getElementById('solve')
 let min = document.getElementById('min')
@@ -256,15 +256,43 @@ function save ()
     console.log(min.innerHTML, sec.innerHTML)
 }
 
-function resume () 
-{
-    
+function resume() {
+
+    container.style.opacity = 1;
+    button.disabled = false;
+    solve.disabled = false;
+    number.forEach(function (i) {
+        i.style.pointerEvents = 'auto';
+    })
+    divs.forEach(function (div) {
+        div.style.pointerEvents = 'auto';
+    })
+
     const username = document.getElementById("username").value;
     console.log(username, JSON.parse(localStorage.getItem(username)));
     board = JSON.parse(localStorage.getItem(username))[0];
     min.innerHTML = JSON.parse(localStorage.getItem(username))[1];
     sec.innerHTML = JSON.parse(localStorage.getItem(username))[2];
-    timerr = setInterval(timer,1000)
+    timerr = setInterval(timer, 1000)
     changeBoard(board)
     console.log(board);
+}
+
+function pause() {
+    container.style.opacity = 0.3;
+    save();
+    button.disabled = true;
+    solve.disabled = true;
+
+    number.forEach(function (i) {
+        i.style.pointerEvents = 'none';
+    })
+
+    divs.forEach(function (div) {
+        div.style.pointerEvents = 'none';
+    })
+
+    clearInterval(timerr)
+
+
 }
