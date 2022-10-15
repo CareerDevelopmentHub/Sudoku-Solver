@@ -39,7 +39,7 @@ function setColor(temp) {
         for (var j = 0; j < 9; j++) {
             if (temp[i][j] == true) {
                 arr[i][j].style.color = "#DC3545";
-                
+
             }
 
         }
@@ -60,7 +60,7 @@ function resetColor() {
 
 var board = [[], [], [], [], [], [], [], [], []]
 
-
+let container = document.getElementById('container');
 let button = document.getElementById('generate-sudoku')
 let solve = document.getElementById('solve')
 let min = document.getElementById('min')
@@ -90,7 +90,7 @@ divs.forEach(function (div) {
 
 let changecolor = function (i) {
     selectedcolor.style.border = 'none';
-    i.style.border= '2px solid black';
+    i.style.border = '2px solid black';
     selectedcolor = i;
 }
 
@@ -125,146 +125,174 @@ button.onclick = function () {
     xhrRequest.open('get', 'https://sugoku.herokuapp.com/board?difficulty=easy')
     //we can change the difficulty of the puzzle the allowed values of difficulty are easy, medium, hard and random
     xhrRequest.send()
-    timerr = setInterval(timer,1000)
+    timerr = setInterval(timer, 1000)
 }
 
 
 function timer() {
-    if(Number(sec.innerText)<9){
-        sec.innerText ="0"+(Number(sec.innerText)+1);
+    if (Number(sec.innerText) < 9) {
+        sec.innerText = "0" + (Number(sec.innerText) + 1);
     }
-    else{
-        sec.innerText =Number(sec.innerText)+1;  
+    else {
+        sec.innerText = Number(sec.innerText) + 1;
     }
-   if(Number(sec.innerText) >=60){
-    sec.innerText = 00;
-    if(Number(min.innerText)<9){
-    min.innerText = "0"+(Number(min.innerText)+1);
-   }
-   else{
-    min.innerText = Number(min.innerText)+1;
-   }
-}
-
-function isPossible(board, sr, sc, val) {
-
-    // check for not repeating in same row
-    for (var row = 0; row < 9; row++) {
-        if (board[row][sc] == val) {
-            return false;
+    if (Number(sec.innerText) >= 60) {
+        sec.innerText = 00;
+        if (Number(min.innerText) < 9) {
+            min.innerText = "0" + (Number(min.innerText) + 1);
+        }
+        else {
+            min.innerText = Number(min.innerText) + 1;
         }
     }
 
-     // check for not repeating in same column
-    for (var col = 0; col < 9; col++) {
-        if (board[sr][col] == val) {
-            return false;
-        }
-    }
+    function isPossible(board, sr, sc, val) {
 
-    // sub-grid
-    var r = sr - (sr%3);
-    var c = sc - (sc%3);
-
-    for (var cr = r; cr < r + 3; cr++) {
-        for (var cc = c; cc < c + 3; cc++) {
-            if (board[cr][cc] == val) {
+        // check for not repeating in same row
+        for (var row = 0; row < 9; row++) {
+            if (board[row][sc] == val) {
                 return false;
             }
         }
-    }
-    return true;
 
-}
-
-
-function solveSudokuHelper(board, sr, sc) {  // board, starting row, starting col
-
-    // base case
-    if (sr == 9) { // all rows filled
-        changeBoard(board);
-        return;
-    }
-    if (sc == 9) {  // last column
-        solveSudokuHelper(board, sr + 1, 0) // move to next row
-        return;
-    }
-
-    //pre-filled cell, skip it
-    if (board[sr][sc] != 0) {
-        solveSudokuHelper(board, sr, sc + 1);
-        return;
-    }
-    
-    //there is 0 in the current location
-    for (var i = 1; i <= 9; i++) {
-        if (isPossible(board, sr, sc, i)) { // check
-            board[sr][sc] = i;
-            solveSudokuHelper(board, sr, sc + 1);
+        // check for not repeating in same column
+        for (var col = 0; col < 9; col++) {
+            if (board[sr][col] == val) {
+                return false;
+            }
         }
-        // backtracking
-            board[sr][sc] = 0;
-        
+
+        // sub-grid
+        var r = sr - (sr % 3);
+        var c = sc - (sc % 3);
+
+        for (var cr = r; cr < r + 3; cr++) {
+            for (var cc = c; cc < c + 3; cc++) {
+                if (board[cr][cc] == val) {
+                    return false;
+                }
+            }
+        }
+        return true;
+
     }
+
+
+    function solveSudokuHelper(board, sr, sc) {  // board, starting row, starting col
+
+        // base case
+        if (sr == 9) { // all rows filled
+            changeBoard(board);
+            return;
+        }
+        if (sc == 9) {  // last column
+            solveSudokuHelper(board, sr + 1, 0) // move to next row
+            return;
+        }
+
+        //pre-filled cell, skip it
+        if (board[sr][sc] != 0) {
+            solveSudokuHelper(board, sr, sc + 1);
+            return;
+        }
+
+        //there is 0 in the current location
+        for (var i = 1; i <= 9; i++) {
+            if (isPossible(board, sr, sc, i)) { // check
+                board[sr][sc] = i;
+                solveSudokuHelper(board, sr, sc + 1);
+            }
+            // backtracking
+            board[sr][sc] = 0;
+
+        }
+    }
+
+    function solveSudoku(board) {
+        solveSudokuHelper(board, 0, 0)
+    }
+
+    // solve button
+    solve.onclick = function () {
+        clearInterval(timerr);
+        solveSudoku(board)
+
+    }
+
+    /* Focus Change */
+    window.onload = function () {
+        var preTitle = document.title;
+        var postTitle = "Don't give up ! 🥺";
+        document.addEventListener("visibilitychange", function () {
+            var page_Active = !document.hidden;
+
+            if (!page_Active) {
+                document.title = postTitle;
+            } else {
+                document.title = preTitle;
+            }
+        });
+    };
+
+    /*Dark-Mode*/
+    function darkMode() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+    }
+
 }
 
-function solveSudoku(board) {
-    solveSudokuHelper(board, 0, 0)
-}
 
-// solve button
-solve.onclick = function () {
-    clearInterval(timerr);
-    solveSudoku(board)
-
-}
-
-/* Focus Change */
-window.onload = function () {
-    var preTitle = document.title;
-    var postTitle = "Don't give up ! 🥺";
-    document.addEventListener("visibilitychange", function () {
-      var page_Active = !document.hidden;
-  
-      if (!page_Active) {
-        document.title = postTitle;
-      } else {
-        document.title = preTitle;
-      }
-    });
-  };
-
-  /*Dark-Mode*/
-  function darkMode() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
-
-}
-
-
-function save ()
-{
+function save() {
 
     const username = document.getElementById("username").value;
     console.log(username, "save");
-    for (let i = 0; i < 81;i++)
-    {
-        board[~~(i / 9)][i % 9] = document.getElementById(i).innerHTML;   
+    for (let i = 0; i < 81; i++) {
+        board[~~(i / 9)][i % 9] = document.getElementById(i).innerHTML;
     }
-    localStorage.setItem(username,  JSON.stringify([board, min.innerHTML, sec.innerHTML]));
+    localStorage.setItem(username, JSON.stringify([board, min.innerHTML, sec.innerHTML]));
     console.log(min.innerHTML, sec.innerHTML)
 }
 
-function resume () 
-{
-    
+function resume() {
+
+    container.style.opacity = 1;
+    button.disabled = false;
+    solve.disabled = false;
+    number.forEach(function (i) {
+        i.style.pointerEvents = 'auto';
+    })
+    divs.forEach(function (div) {
+        div.style.pointerEvents = 'auto';
+    })
+
     const username = document.getElementById("username").value;
-    console.log(username, JSON.parse(localStorage.getItem(username)));
-    board = JSON.parse(localStorage.getItem(username))[0];
-    min.innerHTML = JSON.parse(localStorage.getItem(username))[1];
-    sec.innerHTML = JSON.parse(localStorage.getItem(username))[2];
-    timerr = setInterval(timer,1000)
+    if (username) {
+        console.log(username, JSON.parse(localStorage.getItem(username)));
+        board = JSON.parse(localStorage.getItem(username))[0];
+        min.innerHTML = JSON.parse(localStorage.getItem(username))[1];
+        sec.innerHTML = JSON.parse(localStorage.getItem(username))[2];
+    }
+    timerr = setInterval(timer, 1000)
     changeBoard(board)
     console.log(board);
+}
+
+function pause() {
+    container.style.opacity = 0.3;
+    save();
+    button.disabled = true;
+    solve.disabled = true;
+
+    number.forEach(function (i) {
+        i.style.pointerEvents = 'none';
+    })
+
+    divs.forEach(function (div) {
+        div.style.pointerEvents = 'none';
+    })
+
+    clearInterval(timerr)
+
+
 }
