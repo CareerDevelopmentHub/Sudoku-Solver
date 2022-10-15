@@ -1,6 +1,46 @@
 // 2D matrix
+// program to implement stack data structure
+class Stack {
+    constructor() {
+        this.items = [];
+    }
+    
+    // add element to the stack
+    add(element) {
+        return this.items.push(element);
+    }
+    
+    // remove element from the stack
+    remove() {
+        if(this.items.length > 0) {
+            return this.items.pop();
+        }
+    }
+    
+    // view the last element
+    peek() {
+        return this.items[this.items.length - 1];
+    }
+    
+    // check if the stack is empty
+    isEmpty(){
+       return this.items.length == 0;
+    }
+   
+    // the size of the stack
+    size(){
+        return this.items.length;
+    }
+ 
+    // empty the stack
+    clear(){
+        this.items = [];
+    }
+}
+
 var arr = [[], [], [], [], [], [], [], [], []]
 var temp = [[], [], [], [], [], [], [], [], []]
+var stack = new Stack();
 
 for (var i = 0; i < 9; i++) {
     for (var j = 0; j < 9; j++) {
@@ -83,6 +123,7 @@ number.forEach(function (i) {
 
 divs.forEach(function (div) {
     div.onclick = function () {
+        stack.add(div.id);
         div.innerText = value;
         console.log(div.innerText)
     }
@@ -268,3 +309,16 @@ function resume ()
     changeBoard(board)
     console.log(board);
 }
+
+
+//undo - redo feature
+
+let undoBtn = document.getElementById("undo");
+let redoBtn = document.getElementById("redo");
+
+undoBtn.addEventListener('click',function(){
+    var i = stack.peek() / 9;
+    var j = stack.peek() % 9;
+    document.getElementById(stack.peek()).innerText = null;
+    stack.remove();
+})
