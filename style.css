@@ -2,6 +2,12 @@ body{
     background-image: linear-gradient( 135deg, #FFF6B7 10%, #F6416C 100%);
 }
 
+.navbar{
+    font-size: 25px;
+    font-family: sans-serif;
+    background-color: whitesmoke;
+}
+
 #content{
     display: flex;
     flex-direction: column;
@@ -113,12 +119,19 @@ body{
 
 /*dark-mode */
 .dark-mode {
-    /* background-color: black; */
     background-image: linear-gradient( 135deg, #F05F57 10%, #360940 100%);
-        color: red;
+        color: white;
 
-  }
+}
 
+
+.dark-mode .btn-dark{
+    background-color: white;
+}
+
+.dark-mode .navbar{
+    background-color: #212529;
+}
 
 .dark-mode #container div:hover{
     background-color: rgb(6, 39, 59);

@@ -260,28 +260,30 @@ solve.onclick = function () {
 
 }
 
-/* Focus Change */
+}
+
+// Dark Mode
+const btnDark = document.querySelector('.btn-dark');
+btnDark.addEventListener('click', (e)=>{
+
+    e.preventDefault();
+    document.body.classList.toggle("dark-mode");
+});
+
+// Focus Mode
 window.onload = function () {
     var preTitle = document.title;
     var postTitle = "Don't give up ! 🥺";
     document.addEventListener("visibilitychange", function () {
-      var page_Active = !document.hidden;
-  
-      if (!page_Active) {
-        document.title = postTitle;
-      } else {
-        document.title = preTitle;
-      }
+        var page_Active = !document.hidden;
+
+        if (!page_Active) {
+            document.title = postTitle;
+        } else {
+            document.title = preTitle;
+        }
     });
-  };
-
-  /*Dark-Mode*/
-  function darkMode() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
-
-}
+};
 
 
 function save ()
