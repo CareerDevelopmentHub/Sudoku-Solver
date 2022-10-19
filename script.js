@@ -111,6 +111,7 @@ let number = document.getElementById('numbers').querySelectorAll('div');
 let selectedcolor = document.getElementById('01');
 selectedcolor.style.border = '2px solid black'
 let timerr;
+var keyvalue
 
 console.log(number)
 
@@ -121,11 +122,23 @@ number.forEach(function (i) {
     }
 })
 
+//User has to either choose a number from the grid and place it in the container div or choose a number from the keyboard and then click on the desired container div to place the number.
 divs.forEach(function (div) {
     div.onclick = function () {
-        stack.add(div.id);
-        div.innerText = value;
-        console.log(div.innerText)
+        if(Number.isNaN(value)){
+            //keyboard input
+            div.addEventListener('keypress', (event) => {
+                value = event.key;
+            }, false);
+        }
+        if(Number.isNaN(value)){
+            console.log("Choose a number using keyboard/select from the number grid")
+        }
+        else{
+            div.innerText = value;
+            console.log(div.innerText)
+            stack.add(div.id);
+        }
     }
 })
 
@@ -323,6 +336,7 @@ function resume() {
 //undo - redo feature
 
 let undoBtn = document.getElementById("undo");
+let deselect = document.getElementById("deselect");
 let redoBtn = document.getElementById("redo");
 
 undoBtn.addEventListener('click',function(){
@@ -330,6 +344,12 @@ undoBtn.addEventListener('click',function(){
     var j = stack.peek() % 9;
     document.getElementById(stack.peek()).innerText = null;
     stack.remove();
+})
+
+deselect.addEventListener('click',function(){
+    document.addEventListener('keypress', (event) => {
+        value = event.key;
+    }, false);
 })
 
 
