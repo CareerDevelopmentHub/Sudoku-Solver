@@ -198,6 +198,10 @@ body{
     padding-top: 5px;
   }
   
+  #deselect{
+    width: 210px;
+    height: 40px;
+  }
   .undo-button:hover {
     opacity: 0.8;
   }
