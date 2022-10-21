@@ -123,9 +123,14 @@ number.forEach(function (i) {
 
 divs.forEach(function (div) {
     div.onclick = function () {
-        stack.add(div.id);
-        div.innerText = value;
-        console.log(div.innerText)
+        if(!Number.isInteger(value)){
+            console.log("Select a number")
+        }
+        else{
+            stack.add(div.id);
+            div.innerText = value;
+            console.log(div.innerText)
+        }
     }
 })
 
