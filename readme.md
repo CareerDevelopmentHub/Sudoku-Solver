@@ -24,7 +24,7 @@ And after working on your fix before creating a pull request make sure you check
 
 &#128073; In your pull request, make sure to add the screenshot of the part you are working on before implementing your changes and also after implementing your changes.
 
-&#128073; If you are working on anything from the issues then make sure to add the isuue number along with the screenshots.
+&#128073; IMPORTANT :- If you are working on anything from the issues then make sure to add the isuue number along with the screenshots.
 
 <h1 align=center> Project Admin ❤️ </h1>
 <p align="center">
@@ -34,7 +34,5 @@ And after working on your fix before creating a pull request make sure you check
 </tbody></table>
      
 <h3 align="center"> Happy Coding 👨‍💻 </h3>
-
-
 </body>
 </html>
