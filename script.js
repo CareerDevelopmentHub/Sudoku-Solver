@@ -183,7 +183,7 @@ function timer() {
         sec.innerText =Number(sec.innerText)+1;  
     }
    if(Number(sec.innerText) >=60){
-    sec.innerText = 00;
+    sec.innerText = 0o0;
     if(Number(min.innerText)<9){
     min.innerText = "0"+(Number(min.innerText)+1);
    }
