@@ -1,5 +1,7 @@
 body{
     background-image: linear-gradient( 135deg, #FFF6B7 10%, #F6416C 100%);
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    font-size: 5px;
 }
 
 #content{
