@@ -4,36 +4,36 @@ class Stack {
     constructor() {
         this.items = [];
     }
-    
+
     // add element to the stack
     add(element) {
         return this.items.push(element);
     }
-    
+
     // remove element from the stack
     remove() {
-        if(this.items.length > 0) {
+        if (this.items.length > 0) {
             return this.items.pop();
         }
     }
-    
+
     // view the last element
     peek() {
         return this.items[this.items.length - 1];
     }
-    
+
     // check if the stack is empty
-    isEmpty(){
-       return this.items.length == 0;
+    isEmpty() {
+        return this.items.length == 0;
     }
-   
+
     // the size of the stack
-    size(){
+    size() {
         return this.items.length;
     }
- 
+
     // empty the stack
-    clear(){
+    clear() {
         this.items = [];
     }
 }
@@ -79,7 +79,7 @@ function setColor(temp) {
         for (var j = 0; j < 9; j++) {
             if (temp[i][j] == true) {
                 arr[i][j].style.color = "#DC3545";
-                
+
             }
 
         }
@@ -123,10 +123,10 @@ number.forEach(function (i) {
 
 divs.forEach(function (div) {
     div.onclick = function () {
-        if(!Number.isInteger(value)){
+        if (!Number.isInteger(value)) {
             console.log("Select a number")
         }
-        else{
+        else {
             stack.add(div.id);
             div.innerText = value;
             console.log(div.innerText)
@@ -136,7 +136,7 @@ divs.forEach(function (div) {
 
 let changecolor = function (i) {
     selectedcolor.style.border = 'none';
-    i.style.border= '2px solid black';
+    i.style.border = '2px solid black';
     selectedcolor = i;
 }
 
@@ -171,98 +171,142 @@ button.onclick = function () {
     xhrRequest.open('get', 'https://sugoku.herokuapp.com/board?difficulty=easy')
     //we can change the difficulty of the puzzle the allowed values of difficulty are easy, medium, hard and random
     xhrRequest.send()
-    timerr = setInterval(timer,1000)
+    timerr = setInterval(timer, 1000)
 }
 
 
 function timer() {
-    if(Number(sec.innerText)<9){
-        sec.innerText ="0"+(Number(sec.innerText)+1);
+    if (Number(sec.innerText) < 9) {
+        sec.innerText = "0" + (Number(sec.innerText) + 1);
     }
-    else{
-        sec.innerText =Number(sec.innerText)+1;  
+    else {
+        sec.innerText = Number(sec.innerText) + 1;
     }
-   if(Number(sec.innerText) >=60){
-    sec.innerText = 00;
-    if(Number(min.innerText)<9){
-    min.innerText = "0"+(Number(min.innerText)+1);
-   }
-   else{
-    min.innerText = Number(min.innerText)+1;
-   }
-}
-
-function isPossible(board, sr, sc, val) {
-
-    // check for not repeating in same row
-    for (var row = 0; row < 9; row++) {
-        if (board[row][sc] == val) {
-            return false;
+    if (Number(sec.innerText) >= 60) {
+        sec.innerText = 0o0;
+        if (Number(min.innerText) < 9) {
+            min.innerText = "0" + (Number(min.innerText) + 1);
+        }
+        else {
+            min.innerText = Number(min.innerText) + 1;
         }
     }
 
-     // check for not repeating in same column
-    for (var col = 0; col < 9; col++) {
-        if (board[sr][col] == val) {
-            return false;
-        }
-    }
+    function isPossible(board, sr, sc, val) {
 
-    // sub-grid
-    var r = sr - (sr%3);
-    var c = sc - (sc%3);
-
-    for (var cr = r; cr < r + 3; cr++) {
-        for (var cc = c; cc < c + 3; cc++) {
-            if (board[cr][cc] == val) {
+        // check for not repeating in same row
+        for (var row = 0; row < 9; row++) {
+            if (board[row][sc] == val) {
                 return false;
             }
         }
-    }
-    return true;
 
-}
-
-
-function solveSudokuHelper(board, sr, sc) {  // board, starting row, starting col
-
-    // base case
-    if (sr == 9) { // all rows filled
-        changeBoard(board);
-        return;
-    }
-    if (sc == 9) {  // last column
-        solveSudokuHelper(board, sr + 1, 0) // move to next row
-        return;
-    }
-
-    //pre-filled cell, skip it
-    if (board[sr][sc] != 0) {
-        solveSudokuHelper(board, sr, sc + 1);
-        return;
-    }
-    
-    //there is 0 in the current location
-    for (var i = 1; i <= 9; i++) {
-        if (isPossible(board, sr, sc, i)) { // check
-            board[sr][sc] = i;
-            solveSudokuHelper(board, sr, sc + 1);
+        // check for not repeating in same column
+        for (var col = 0; col < 9; col++) {
+            if (board[sr][col] == val) {
+                return false;
+            }
         }
-        // backtracking
-            board[sr][sc] = 0;
-        
+
+        // sub-grid
+        var r = sr - (sr % 3);
+        var c = sc - (sc % 3);
+
+        for (var cr = r; cr < r + 3; cr++) {
+            for (var cc = c; cc < c + 3; cc++) {
+                if (board[cr][cc] == val) {
+                    return false;
+                }
+            }
+        }
+        return true;
+
     }
+
+
+    function solveSudokuHelper(board, sr, sc) {  // board, starting row, starting col
+
+        // base case
+        if (sr == 9) { // all rows filled
+            changeBoard(board);
+            return;
+        }
+        if (sc == 9) {  // last column
+            solveSudokuHelper(board, sr + 1, 0) // move to next row
+            return;
+        }
+
+        //pre-filled cell, skip it
+        if (board[sr][sc] != 0) {
+            solveSudokuHelper(board, sr, sc + 1);
+            return;
+        }
+
+        //there is 0 in the current location
+        for (var i = 1; i <= 9; i++) {
+            if (isPossible(board, sr, sc, i)) { // check
+                board[sr][sc] = i;
+                solveSudokuHelper(board, sr, sc + 1);
+            }
+            // backtracking
+            board[sr][sc] = 0;
+
+        }
+    }
+
+    function solveSudoku(board) {
+        solveSudokuHelper(board, 0, 0)
+    }
+
+    // solve button
+    solve.onclick = function () {
+        clearInterval(timerr);
+        solveSudoku(board)
+
+    }
+
+    
+
 }
 
-function solveSudoku(board) {
-    solveSudokuHelper(board, 0, 0)
-}
 
-// solve button
-solve.onclick = function () {
-    clearInterval(timerr);
-    solveSudoku(board)
 
+/*Dark-Mode*/
+const darkBtn = document.getElementById("darkBtn");
+darkBtn.addEventListener("click", () => {
+    console.log("Hello");
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+    if(darkBtn.innerHTML == "🌒"){
+        darkBtn.innerHTML = "⛅";
+        darkBtn.classList.remove("btn-dark");
+    }else{
+        darkBtn.innerHTML = "🌒";
+        darkBtn.classList.add("btn-dark");
+    }
+})
+
+//Focus change Notification
+function showNotification() {
+    if (!document.hidden) {
+        const options = {
+            body: "Don't give up, champ!",
+        };
+
+        if ('Notification' in window) {
+            if (Notification.permission === 'granted') {
+                new Notification('Important Message', options);
+                alert("Don't give up, champ!");
+            } else if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification('Important Message', options);
+                        
+                    }
+                });
+            }
+        }
+    }
 }
 
 /* Focus Change */
@@ -270,35 +314,26 @@ window.onload = function () {
     var preTitle = document.title;
     var postTitle = "Don't give up ! 🥺";
     document.addEventListener("visibilitychange", function () {
-      var page_Active = !document.hidden;
-  
-      if (!page_Active) {
-        document.title = postTitle;
-      } else {
-        document.title = preTitle;
-      }
+        showNotification();
+        var page_Active = !document.hidden;
+        console.log("page_Active" + page_Active);
+        console.log("!document.hidden" + !document.hidden);
+        if (!page_Active) {
+            document.title = postTitle;
+        } else {
+            document.title = preTitle;
+        }
     });
-  };
-
-  /*Dark-Mode*/
-  function darkMode() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-  }
-
 }
 
-
-function save ()
-{
+function save() {
 
     const username = document.getElementById("username").value;
     console.log(username, "save");
-    for (let i = 0; i < 81;i++)
-    {
-        board[~~(i / 9)][i % 9] = document.getElementById(i).innerHTML;   
+    for (let i = 0; i < 81; i++) {
+        board[~~(i / 9)][i % 9] = document.getElementById(i).innerHTML;
     }
-    localStorage.setItem(username,  JSON.stringify([board, min.innerHTML, sec.innerHTML]));
+    localStorage.setItem(username, JSON.stringify([board, min.innerHTML, sec.innerHTML]));
     console.log(min.innerHTML, sec.innerHTML)
 }
 
@@ -330,7 +365,7 @@ function resume() {
 let undoBtn = document.getElementById("undo");
 let redoBtn = document.getElementById("redo");
 
-undoBtn.addEventListener('click',function(){
+undoBtn.addEventListener('click', function () {
     var i = stack.peek() / 9;
     var j = stack.peek() % 9;
     document.getElementById(stack.peek()).innerText = null;
