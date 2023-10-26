@@ -7,13 +7,17 @@ body{
     flex-direction: column;
 }
 
-#timer{
-    width: 5%;
+#timer {
     display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: #333;
     margin: auto;
     margin-bottom: 2rem;
-    align-items: center;
-    justify-content: space-around;
+    background-color: #e3e2df; 
+    padding: 10px 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1); 
 }
 
 
