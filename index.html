@@ -16,12 +16,22 @@
 
     <!------------------------------- NAV BAR -------------------------------->
 
-    <nav class="navbar navbar-light " style="font-size: 25px; font-family: sans-serif; background-color: whitesmoke;">
+    <nav class="navbar navbar-light " style="font-size: 25px; font-family: sans-serif; background-color: rgb(28, 30, 56);">
 
         <img src="puzzel.jpg" width="124" height="45" class="d-inline-block align-top" alt="">
-        Sudoku Solver Project
-
-        <div class="logo"><button type="button" class="btn btn-dark" onclick="darkMode()">🌒</button>
+     <h1 style="color: aliceblue;">   Sudoku Solver Project</h1>
+        <label for="switch">
+            <input type="checkbox" id="switch" class="switch">
+            <label for="switch"></label>
+      </label>
+      <script>
+        const $html = document.querySelector("html");
+        const $checkbox = document.querySelector("#switch");
+        
+        $checkbox.addEventListener("change", function() {
+            $html.classList.toggle("light-mode");
+        });
+        </script>
         </div>
 
     </nav>
